@@ -1,9 +1,9 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupNewPlace({ title, name, isOpen }) {
+function PopupNewPlace({ title, name, isOpen, onClose }) {
   return (
-    <PopupWithForm title={title} name={name} isOpen={isOpen}>
+    <PopupWithForm title={title} name={name} isOpen={isOpen} onClose={onClose}>
       <input
         className="popup__input popup__input_type_name"
         placeholder="Название"

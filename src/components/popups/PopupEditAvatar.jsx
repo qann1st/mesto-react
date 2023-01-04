@@ -1,9 +1,9 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupEditAvatar({ title, name, isOpen }) {
+function PopupEditAvatar({ title, name, isOpen, onClose }) {
   return (
-    <PopupWithForm title={title} name={name} isOpen={isOpen}>
+    <PopupWithForm title={title} name={name} isOpen={isOpen} onClose={onClose}>
       <input
         className="popup__input popup__input_type_link"
         name="link"

@@ -2,14 +2,13 @@ import React from 'react';
 
 function ImagePopup() {
   return (
-    <section className="popup popup-photo">
-      <div className="popup__wrapper"></div>
-      <div className="popup__image-all">
-        <button className="popup__close"></button>
-        <img className="popup__image" alt="" src="" />
-        <p className="popup__image-description"></p>
+    <div class="popup popup_dark popup-image">
+      <div class="popup__image-view">
+        <button type="button" class="popup__close-btn" title="Закрыть"></button>
+        <img class="popup__image" alt="" />
+        <p class="popup__img-caption"></p>
       </div>
-    </section>
+    </div>
   );
 }
 
