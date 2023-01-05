@@ -2,15 +2,16 @@ import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
+import ImagePopup from './popups/ImagePopup';
 import PopupEditAvatar from './popups/PopupEditAvatar';
 import PopupEditProfile from './popups/PopupEditProfile';
 import PopupNewPlace from './popups/PopupNewPlace';
-import PopupWithForm from './popups/PopupWithForm';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState('');
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -24,10 +25,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard('');
   }
 
   return (
@@ -38,6 +44,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
       </div>
@@ -59,31 +66,7 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       />
-      <section className="popup popup-remove">
-        <div className="popup__wrapper"></div>
-        <div className="popup__container popup__container_remove">
-          <button className="popup__close"></button>
-          <h2 className="popup__title">Вы уверены?</h2>
-          <button className="popup__button" type="submit">
-            Да
-          </button>
-        </div>
-      </section>
-      <template className="card__template">
-        <li className="element">
-          <div className="element__image-wrapper">
-            <button className="element__delete"></button>
-            <img className="element__image" alt="" src="" />
-          </div>
-          <div className="element__description">
-            <h2 className="element__title"></h2>
-            <div className="element__like_container">
-              <button className="element__like"></button>
-              <span className="element__like_count">0</span>
-            </div>
-          </div>
-        </li>
-      </template>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }

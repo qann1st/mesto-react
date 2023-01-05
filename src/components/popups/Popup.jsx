@@ -23,7 +23,6 @@ function Popup({ children, name, isOpen, onClose }) {
         <button
           type="button"
           className="popup__close-btn"
-          title="Закрыть"
           onClick={() => handleClickOnOverlayOrClose()}></button>
         {children}
       </div>

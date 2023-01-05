@@ -1,16 +1,19 @@
 import React from 'react';
 import { api } from '../utils/Api.js';
+import Card from './Card.jsx';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = React.useState();
   const [userAbout, setUserAbout] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo().then((res) => {
-      setUserName(res.name);
-      setUserAbout(res.about);
-      setUserAvatar(res.avatar);
+    Promise.all([api.getUserInfo(), api.getInitialCards()]).then(([user, cards]) => {
+      setUserName(user.name);
+      setUserAbout(user.about);
+      setUserAvatar(user.avatar);
+      setCards(cards);
     });
   }, []);
 
@@ -29,7 +32,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
         <button className="profile__add-button" onClick={() => onAddPlace()}></button>
       </div>
       <section>
-        <ul className="elements"></ul>
+        <ul className="elements">
+          {cards.map((item) => (
+            <Card item={item} onCardClick={onCardClick} />
+          ))}
+        </ul>
       </section>
     </main>
   );
