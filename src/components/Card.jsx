@@ -9,7 +9,7 @@ function Card({ item, onCardClick }) {
     <li className="element">
       <div className="element__image-wrapper">
         <button className="element__delete"></button>
-        <img className="element__image" alt="" src={item.link} onClick={() => handleClick()} />
+        <img className="element__image" alt="" src={item.link} onClick={handleClick} />
       </div>
       <div className="element__description">
         <h2 className="element__title">{item.name}</h2>

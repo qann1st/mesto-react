@@ -1,33 +1,21 @@
 import React from 'react';
+import Popup from './Popup';
 
-function ImagePopup({ card, onClose }) {
-  React.useEffect(
-    function handleEscClick() {
-      document.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape') {
-          onClose();
-        }
-      });
-    },
-    [onClose],
-  );
+function ImagePopup({ card, ...otherProps }) {
+  const [currentCard, setCurrentCard] = React.useState(card);
 
-  function handleClickOnOverlayOrClose() {
-    onClose();
-  }
+  React.useEffect(() => {
+    if (card !== null) setCurrentCard(card);
+  }, [card]);
 
   return (
-    <div className={`popup popup_dark popup-image ${card !== '' ? 'popup_opened' : ''}`}>
-      <div className="popup__wrapper" onClick={() => handleClickOnOverlayOrClose()}></div>
+    <Popup {...otherProps} isOpen={card !== null} isDark={true}>
       <div className="popup__image-view">
-        <button
-          type="button"
-          className="popup__close-btn"
-          onClick={() => handleClickOnOverlayOrClose()}></button>
-        <img className="popup__image" src={card.link} />
-        <p className="popup__img-caption">{card.name}</p>
+        <button type="button" className="popup__close-btn"></button>
+        <img className="popup__image" alt={currentCard?.name} src={currentCard?.link} />
+        <p className="popup__img-caption">{currentCard?.name}</p>
       </div>
-    </div>
+    </Popup>
   );
 }
 
