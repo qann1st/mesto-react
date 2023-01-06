@@ -66,6 +66,10 @@ function App() {
     api.setUserAvatar(data).then((res) => setCurrentAvatar(res.avatar));
   }
 
+  function handleAddPlaceSubmit(data) {
+    api.addCard(data).then((newCard) => setCards([newCard, ...cards]));
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -102,6 +106,7 @@ function App() {
           name={'new-place'}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
         />
         <PopupEditAvatar
           title={'Обновить аватар'}
