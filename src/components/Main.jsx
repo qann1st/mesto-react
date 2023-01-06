@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../utils/Api.js';
 import Card from './Card.jsx';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -10,23 +9,21 @@ function Main({
   onCardClick,
   onCardLike,
   cards,
-  setCards,
   cardDelete,
+  currentAvatar,
 }) {
   const userContext = React.useContext(CurrentUserContext);
-
-  React.useEffect(() => {
-    api.getInitialCards().then((cards) => {
-      setCards(cards);
-    });
-  });
 
   return (
     <main className="content">
       <div className="profile">
         <div className="profile__avatar" onClick={() => onEditAvatar()}>
           <div className="profile__avatar_edit"></div>
-          <img className="profile__avatar_img" alt="Фото профиля" src={userContext?.avatar} />
+          <img
+            className="profile__avatar_img"
+            alt="Фото профиля"
+            src={currentAvatar !== null ? currentAvatar : userContext?.avatar}
+          />
         </div>
         <div className="profile__info">
           <h1 className="profile__name">{userContext?.name}</h1>

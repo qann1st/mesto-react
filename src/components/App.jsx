@@ -16,10 +16,17 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
+  const [currentAvatar, setCurrentAvatar] = React.useState(null);
 
   React.useEffect(() => {
     api.getUserInfo().then((res) => setCurrentUser(res));
   }, []);
+
+  React.useEffect(() => {
+    api.getInitialCards().then((cards) => {
+      setCards(cards);
+    });
+  });
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -55,6 +62,10 @@ function App() {
     api.setUserInfo(data).then((res) => setCurrentUser(res));
   }
 
+  function handleUpdateAvatar(data) {
+    api.setUserAvatar(data).then((res) => setCurrentAvatar(res.avatar));
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -74,8 +85,8 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             cards={cards}
-            setCards={setCards}
             cardDelete={handleCardDelete}
+            currentAvatar={currentAvatar}
           />
           <Footer />
         </div>
@@ -97,6 +108,7 @@ function App() {
           name={'edit-avatar'}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <ImagePopup card={selectedCard} name={'image'} onClose={closeAllPopups} />
       </div>
